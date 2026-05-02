@@ -1,0 +1,114 @@
+name: Update Phosphor Core
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Update @phosphor-icons/core
+    runs-on: ubuntu-latest
+    if: github.repository == 'amruthpillai/phosphor-icons-react-pdf'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check latest @phosphor-icons/core version
+        id: core
+        run: |
+          CURRENT_VERSION="$(node -p "require('./node_modules/@phosphor-icons/core/package.json').version")"
+          LATEST_VERSION="$(pnpm view @phosphor-icons/core version)"
+
+          echo "current-version=${CURRENT_VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "latest-version=${LATEST_VERSION}" >> "${GITHUB_OUTPUT}"
+
+          if [[ "${CURRENT_VERSION}" != "${LATEST_VERSION}" ]]; then
+            echo "has-update=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "has-update=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Stop when @phosphor-icons/core is current
+        if: steps.core.outputs.has-update == 'false'
+        run: echo "@phosphor-icons/core is already at ${{ steps.core.outputs.current-version }}."
+
+      - name: Capture current package version
+        if: steps.core.outputs.has-update == 'true'
+        id: package
+        run: echo "old-version=$(node -p 'require("./package.json").version')" >> "${GITHUB_OUTPUT}"
+
+      - name: Update @phosphor-icons/core
+        if: steps.core.outputs.has-update == 'true'
+        run: pnpm up @phosphor-icons/core@latest --latest
+
+      - name: Bump package patch version
+        if: steps.core.outputs.has-update == 'true'
+        id: version
+        run: |
+          pnpm version patch --no-git-tag-version
+          echo "new-version=$(node -p 'require("./package.json").version')" >> "${GITHUB_OUTPUT}"
+
+      - name: Generate icons
+        if: steps.core.outputs.has-update == 'true'
+        run: pnpm generate
+
+      - name: Lint generated files
+        if: steps.core.outputs.has-update == 'true'
+        run: pnpm lint:fix
+
+      - name: Test
+        if: steps.core.outputs.has-update == 'true'
+        run: pnpm test
+
+      - name: Typecheck
+        if: steps.core.outputs.has-update == 'true'
+        run: pnpm typecheck
+
+      - name: Build
+        if: steps.core.outputs.has-update == 'true'
+        run: pnpm build
+
+      - name: Render pull request body
+        if: steps.core.outputs.has-update == 'true'
+        run: pnpm tsx scripts/render-core-update-pr-body.ts
+        env:
+          OLD_CORE_VERSION: ${{ steps.core.outputs.current-version }}
+          NEW_CORE_VERSION: ${{ steps.core.outputs.latest-version }}
+          OLD_PACKAGE_VERSION: ${{ steps.package.outputs.old-version }}
+          NEW_PACKAGE_VERSION: ${{ steps.version.outputs.new-version }}
+          PR_BODY_PATH: .github/phosphor-core-update-pr.md
+
+      - name: Create pull request
+        if: steps.core.outputs.has-update == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          base: main
+          branch: automation/update-phosphor-core
+          delete-branch: true
+          title: "chore: update @phosphor-icons/core"
+          commit-message: "chore: update @phosphor-icons/core"
+          body-path: .github/phosphor-core-update-pr.md
+          add-paths: |
+            package.json
+            pnpm-lock.yaml
+            src

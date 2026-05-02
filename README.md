@@ -231,6 +231,18 @@ assets/
   thin/
 ```
 
+## Automated Core Updates
+
+The `Update Phosphor Core` GitHub Actions workflow runs daily and can also be started manually. It checks the latest published `@phosphor-icons/core` version on npm, updates only when a newer version exists, regenerates the icon components, runs the full verification suite, and opens or updates a pull request.
+
+Updater PRs intentionally do not create git tags. After merging an update PR, create and push the matching version tag manually to trigger the release workflow:
+
+```sh
+git pull origin main
+git tag v0.1.2
+git push origin v0.1.2
+```
+
 ## Publishing Checklist
 
 ```sh
