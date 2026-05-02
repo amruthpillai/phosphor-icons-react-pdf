@@ -1,0 +1,22 @@
+import { Path, Svg } from "@react-pdf/renderer";
+import type { IconProps } from "../types";
+
+export function SmileyMehIcon({
+	color = "currentColor",
+	size = 16,
+	...props
+}: IconProps) {
+	return (
+		<Svg
+			viewBox="0 0 256 256"
+			fill={color}
+			width={size}
+			height={size}
+			{...props}
+		>
+			<Path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm46-58a6,6,0,0,1-6,6H88a6,6,0,0,1,0-12h80A6,6,0,0,1,174,160ZM82,108a10,10,0,1,1,10,10A10,10,0,0,1,82,108Zm92,0a10,10,0,1,1-10-10A10,10,0,0,1,174,108Z" />
+		</Svg>
+	);
+}
+
+export { SmileyMehIcon as SmileyMeh };

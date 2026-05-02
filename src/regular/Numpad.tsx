@@ -1,0 +1,22 @@
+import { Path, Svg } from "@react-pdf/renderer";
+import type { IconProps } from "../types";
+
+export function NumpadIcon({
+	color = "currentColor",
+	size = 16,
+	...props
+}: IconProps) {
+	return (
+		<Svg
+			viewBox="0 0 256 256"
+			fill={color}
+			width={size}
+			height={size}
+			{...props}
+		>
+			<Path d="M80,48A16,16,0,1,1,64,32,16,16,0,0,1,80,48Zm48-16a16,16,0,1,0,16,16A16,16,0,0,0,128,32Zm64,32a16,16,0,1,0-16-16A16,16,0,0,0,192,64ZM64,88a16,16,0,1,0,16,16A16,16,0,0,0,64,88Zm64,0a16,16,0,1,0,16,16A16,16,0,0,0,128,88Zm64,0a16,16,0,1,0,16,16A16,16,0,0,0,192,88ZM64,144a16,16,0,1,0,16,16A16,16,0,0,0,64,144Zm64,0a16,16,0,1,0,16,16A16,16,0,0,0,128,144Zm0,56a16,16,0,1,0,16,16A16,16,0,0,0,128,200Zm64-56a16,16,0,1,0,16,16A16,16,0,0,0,192,144Z" />
+		</Svg>
+	);
+}
+
+export { NumpadIcon as Numpad };

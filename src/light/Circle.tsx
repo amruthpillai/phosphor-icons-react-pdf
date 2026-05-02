@@ -1,0 +1,22 @@
+import { Path, Svg } from "@react-pdf/renderer";
+import type { IconProps } from "../types";
+
+export function CircleIcon({
+	color = "currentColor",
+	size = 16,
+	...props
+}: IconProps) {
+	return (
+		<Svg
+			viewBox="0 0 256 256"
+			fill={color}
+			width={size}
+			height={size}
+			{...props}
+		>
+			<Path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Z" />
+		</Svg>
+	);
+}
+
+export { CircleIcon as Circle };

@@ -1,0 +1,22 @@
+import { Path, Svg } from "@react-pdf/renderer";
+import type { IconProps } from "../types";
+
+export function PlusCircleIcon({
+	color = "currentColor",
+	size = 16,
+	...props
+}: IconProps) {
+	return (
+		<Svg
+			viewBox="0 0 256 256"
+			fill={color}
+			width={size}
+			height={size}
+			{...props}
+		>
+			<Path d="M128,26A102,102,0,1,0,230,128,102.12,102.12,0,0,0,128,26Zm0,192a90,90,0,1,1,90-90A90.1,90.1,0,0,1,128,218Zm46-90a6,6,0,0,1-6,6H134v34a6,6,0,0,1-12,0V134H88a6,6,0,0,1,0-12h34V88a6,6,0,0,1,12,0v34h34A6,6,0,0,1,174,128Z" />
+		</Svg>
+	);
+}
+
+export { PlusCircleIcon as PlusCircle };

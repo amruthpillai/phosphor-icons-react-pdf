@@ -1,0 +1,26 @@
+import { Path, Svg } from "@react-pdf/renderer";
+import type { IconProps } from "../types";
+
+export function CurrencyGbpIcon({
+	color = "currentColor",
+	size = 16,
+	...props
+}: IconProps) {
+	return (
+		<Svg
+			viewBox="0 0 256 256"
+			fill={color}
+			width={size}
+			height={size}
+			{...props}
+		>
+			<Path
+				d="M168,208H60a36,36,0,0,0,36-36V84a44,44,0,0,1,72-33.95Z"
+				opacity="0.2"
+			/>
+			<Path d="M192,208a8,8,0,0,1-8,8H56a8,8,0,0,1,0-16h4a28,28,0,0,0,28-28V136H56a8,8,0,0,1,0-16H88V84a52,52,0,0,1,85.08-40.12A8,8,0,1,1,162.9,56.22,36,36,0,0,0,104,84v36h32a8,8,0,0,1,0,16H104v36a43.82,43.82,0,0,1-10.08,28H184A8,8,0,0,1,192,208Z" />
+		</Svg>
+	);
+}
+
+export { CurrencyGbpIcon as CurrencyGbp };

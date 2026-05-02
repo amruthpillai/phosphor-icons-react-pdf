@@ -1,0 +1,22 @@
+import { Path, Svg } from "@react-pdf/renderer";
+import type { IconProps } from "../types";
+
+export function SunglassesIcon({
+	color = "currentColor",
+	size = 16,
+	...props
+}: IconProps) {
+	return (
+		<Svg
+			viewBox="0 0 256 256"
+			fill={color}
+			width={size}
+			height={size}
+			{...props}
+		>
+			<Path d="M200,44a4,4,0,0,0,0,8,20,20,0,0,1,20,20v60H36V72A20,20,0,0,1,56,52a4,4,0,0,0,0-8A28,28,0,0,0,28,72v92a40,40,0,0,0,80,0V140h40v24a40,40,0,0,0,80,0V72A28,28,0,0,0,200,44ZM36,164V140h2.34l49.27,49.26A32,32,0,0,1,36,164Zm64,0a31.83,31.83,0,0,1-6.74,19.61L49.66,140H100Zm56,0V140h2.34l49.27,49.26A32,32,0,0,1,156,164Zm57.26,19.61L169.66,140H220v24A31.83,31.83,0,0,1,213.26,183.61Z" />
+		</Svg>
+	);
+}
+
+export { SunglassesIcon as Sunglasses };

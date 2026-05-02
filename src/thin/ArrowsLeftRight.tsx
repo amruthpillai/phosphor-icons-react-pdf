@@ -1,0 +1,22 @@
+import { Path, Svg } from "@react-pdf/renderer";
+import type { IconProps } from "../types";
+
+export function ArrowsLeftRightIcon({
+	color = "currentColor",
+	size = 16,
+	...props
+}: IconProps) {
+	return (
+		<Svg
+			viewBox="0 0 256 256"
+			fill={color}
+			width={size}
+			height={size}
+			{...props}
+		>
+			<Path d="M210.83,173.17a4,4,0,0,1,0,5.66l-32,32a4,4,0,0,1-5.66-5.66L198.34,180H48a4,4,0,0,1,0-8H198.34l-25.17-25.17a4,4,0,0,1,5.66-5.66ZM77.17,114.83a4,4,0,0,0,5.66-5.66L57.66,84H208a4,4,0,0,0,0-8H57.66L82.83,50.83a4,4,0,0,0-5.66-5.66l-32,32a4,4,0,0,0,0,5.66Z" />
+		</Svg>
+	);
+}
+
+export { ArrowsLeftRightIcon as ArrowsLeftRight };

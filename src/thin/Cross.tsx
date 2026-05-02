@@ -1,0 +1,22 @@
+import { Path, Svg } from "@react-pdf/renderer";
+import type { IconProps } from "../types";
+
+export function CrossIcon({
+	color = "currentColor",
+	size = 16,
+	...props
+}: IconProps) {
+	return (
+		<Svg
+			viewBox="0 0 256 256"
+			fill={color}
+			width={size}
+			height={size}
+			{...props}
+		>
+			<Path d="M200,76H156V32a12,12,0,0,0-12-12H112a12,12,0,0,0-12,12V76H56A12,12,0,0,0,44,88v32a12,12,0,0,0,12,12h44v92a12,12,0,0,0,12,12h32a12,12,0,0,0,12-12V132h44a12,12,0,0,0,12-12V88A12,12,0,0,0,200,76Zm4,44a4,4,0,0,1-4,4H152a4,4,0,0,0-4,4v96a4,4,0,0,1-4,4H112a4,4,0,0,1-4-4V128a4,4,0,0,0-4-4H56a4,4,0,0,1-4-4V88a4,4,0,0,1,4-4h48a4,4,0,0,0,4-4V32a4,4,0,0,1,4-4h32a4,4,0,0,1,4,4V80a4,4,0,0,0,4,4h48a4,4,0,0,1,4,4Z" />
+		</Svg>
+	);
+}
+
+export { CrossIcon as Cross };
