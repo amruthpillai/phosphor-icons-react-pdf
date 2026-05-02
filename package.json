@@ -36,89 +36,89 @@
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
-			"types": "./dist/index.d.ts",
 			"import": "./dist/index.es.js",
-			"require": "./dist/index.cjs.js"
-		},
-		"./icons": {
-			"types": "./dist/icons/index.d.ts",
-			"import": "./dist/icons/index.es.js",
-			"require": "./dist/icons/index.cjs.js"
-		},
-		"./icons/*": {
-			"types": "./dist/icons/*.d.ts",
-			"import": "./dist/icons/*.es.js",
-			"require": "./dist/icons/*.cjs.js"
-		},
-		"./thin": {
-			"types": "./dist/thin/index.d.ts",
-			"import": "./dist/thin/index.es.js",
-			"require": "./dist/thin/index.cjs.js"
-		},
-		"./thin/*": {
-			"types": "./dist/thin/*.d.ts",
-			"import": "./dist/thin/*.es.js",
-			"require": "./dist/thin/*.cjs.js"
-		},
-		"./light": {
-			"types": "./dist/light/index.d.ts",
-			"import": "./dist/light/index.es.js",
-			"require": "./dist/light/index.cjs.js"
-		},
-		"./light/*": {
-			"types": "./dist/light/*.d.ts",
-			"import": "./dist/light/*.es.js",
-			"require": "./dist/light/*.cjs.js"
-		},
-		"./regular": {
-			"types": "./dist/regular/index.d.ts",
-			"import": "./dist/regular/index.es.js",
-			"require": "./dist/regular/index.cjs.js"
-		},
-		"./regular/*": {
-			"types": "./dist/regular/*.d.ts",
-			"import": "./dist/regular/*.es.js",
-			"require": "./dist/regular/*.cjs.js"
+			"require": "./dist/index.cjs.js",
+			"types": "./dist/index.d.ts"
 		},
 		"./bold": {
-			"types": "./dist/bold/index.d.ts",
 			"import": "./dist/bold/index.es.js",
-			"require": "./dist/bold/index.cjs.js"
+			"require": "./dist/bold/index.cjs.js",
+			"types": "./dist/bold/index.d.ts"
 		},
 		"./bold/*": {
-			"types": "./dist/bold/*.d.ts",
 			"import": "./dist/bold/*.es.js",
-			"require": "./dist/bold/*.cjs.js"
-		},
-		"./fill": {
-			"types": "./dist/fill/index.d.ts",
-			"import": "./dist/fill/index.es.js",
-			"require": "./dist/fill/index.cjs.js"
-		},
-		"./fill/*": {
-			"types": "./dist/fill/*.d.ts",
-			"import": "./dist/fill/*.es.js",
-			"require": "./dist/fill/*.cjs.js"
+			"require": "./dist/bold/*.cjs.js",
+			"types": "./dist/bold/*.d.ts"
 		},
 		"./duotone": {
-			"types": "./dist/duotone/index.d.ts",
 			"import": "./dist/duotone/index.es.js",
-			"require": "./dist/duotone/index.cjs.js"
+			"require": "./dist/duotone/index.cjs.js",
+			"types": "./dist/duotone/index.d.ts"
 		},
 		"./duotone/*": {
-			"types": "./dist/duotone/*.d.ts",
 			"import": "./dist/duotone/*.es.js",
-			"require": "./dist/duotone/*.cjs.js"
+			"require": "./dist/duotone/*.cjs.js",
+			"types": "./dist/duotone/*.d.ts"
+		},
+		"./fill": {
+			"import": "./dist/fill/index.es.js",
+			"require": "./dist/fill/index.cjs.js",
+			"types": "./dist/fill/index.d.ts"
+		},
+		"./fill/*": {
+			"import": "./dist/fill/*.es.js",
+			"require": "./dist/fill/*.cjs.js",
+			"types": "./dist/fill/*.d.ts"
+		},
+		"./icons": {
+			"import": "./dist/icons/index.es.js",
+			"require": "./dist/icons/index.cjs.js",
+			"types": "./dist/icons/index.d.ts"
+		},
+		"./icons/*": {
+			"import": "./dist/icons/*.es.js",
+			"require": "./dist/icons/*.cjs.js",
+			"types": "./dist/icons/*.d.ts"
+		},
+		"./light": {
+			"import": "./dist/light/index.es.js",
+			"require": "./dist/light/index.cjs.js",
+			"types": "./dist/light/index.d.ts"
+		},
+		"./light/*": {
+			"import": "./dist/light/*.es.js",
+			"require": "./dist/light/*.cjs.js",
+			"types": "./dist/light/*.d.ts"
+		},
+		"./regular": {
+			"import": "./dist/regular/index.es.js",
+			"require": "./dist/regular/index.cjs.js",
+			"types": "./dist/regular/index.d.ts"
+		},
+		"./regular/*": {
+			"import": "./dist/regular/*.es.js",
+			"require": "./dist/regular/*.cjs.js",
+			"types": "./dist/regular/*.d.ts"
+		},
+		"./thin": {
+			"import": "./dist/thin/index.es.js",
+			"require": "./dist/thin/index.cjs.js",
+			"types": "./dist/thin/index.d.ts"
+		},
+		"./thin/*": {
+			"import": "./dist/thin/*.es.js",
+			"require": "./dist/thin/*.cjs.js",
+			"types": "./dist/thin/*.d.ts"
 		}
 	},
 	"scripts": {
 		"build": "vite build",
 		"dev": "vite build --watch",
 		"generate": "tsx scripts/generate-icons.ts",
-		"test": "vitest run",
-		"test:coverage": "vitest run --coverage",
-		"lint": "biome check .",
 		"lint:fix": "biome check --write .",
+		"lint": "biome check .",
+		"test:coverage": "vitest run --coverage",
+		"test": "vitest run",
 		"typecheck": "tsc --noEmit"
 	},
 	"peerDependencies": {
@@ -136,8 +136,8 @@
 		"react": "^19.2.5",
 		"tsx": "^4.21.0",
 		"typescript": "^6.0.3",
-		"vite": "^8.0.10",
 		"vite-plugin-dts": "^5.0.0",
+		"vite": "^8.0.10",
 		"vitest": "^4.1.5"
 	},
 	"packageManager": "pnpm@10.33.2+sha512.a90faf6feeab71ad6c6e57f94e0fe1a12f5dcc22cd754db40ae9593eb6a3e0b6b12e3540218bb37ae083404b1f2ce6db2a4121e979829b4aff94b99f49da1cf8",

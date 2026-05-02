@@ -6,5 +6,5 @@
 		"source.fixAll.biome": "always",
 		"source.organizeImports.biome": "always"
 	},
-	"conventionalCommits.scopes": ["release"]
+	"conventionalCommits.scopes": ["release", "lint"]
 }

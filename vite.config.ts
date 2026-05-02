@@ -1,16 +1,16 @@
 import { resolve } from "node:path";
-
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import { defineConfig } from "vitest/config";
-
 import pkg from "./package.json" with { type: "json" };
 
 const peerDependencies = Object.keys(pkg.peerDependencies);
+
 const externalDependencies = new Set([
 	...peerDependencies,
 	"react/jsx-runtime",
 ]);
+
 const iconWeights = [
 	"thin",
 	"light",
@@ -19,6 +19,7 @@ const iconWeights = [
 	"fill",
 	"duotone",
 ] as const;
+
 const variantInputs = Object.fromEntries(
 	iconWeights.map((weight) => [
 		`${weight}/index`,
@@ -35,19 +36,19 @@ export default defineConfig({
 		coverage: {
 			exclude: [
 				"**/dist/**",
+				"coverage/**",
 				"src/bold/**",
 				"src/duotone/**",
 				"src/fill/**",
+				"src/Icon.tsx",
 				"src/icons/**",
+				"src/index.ts",
 				"src/light/**",
 				"src/regular/**",
 				"src/thin/**",
-				"src/Icon.tsx",
-				"src/index.ts",
 				"src/types.ts",
 				"tests/**",
 				"vite.config.ts",
-				"coverage/**",
 			],
 			include: [
 				"scripts/convert-svg.ts",
@@ -60,11 +61,13 @@ export default defineConfig({
 
 	build: {
 		target: "ES2018",
+
 		lib: {
 			name: "PhosphorIconsReactPdf",
 			entry: resolve(import.meta.dirname, "src/index.ts"),
 			fileName: (format, name) => `${name}.${format}.js`,
 		},
+
 		rollupOptions: {
 			external: (id) => externalDependencies.has(id),
 			input: {
