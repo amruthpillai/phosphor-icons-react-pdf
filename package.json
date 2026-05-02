@@ -1,6 +1,6 @@
 {
 	"name": "phosphor-icons-react-pdf",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "@react-pdf/renderer-compatible Phosphor Icons components for browser and Node.js PDF generation.",
 	"type": "module",
 	"license": "MIT",
