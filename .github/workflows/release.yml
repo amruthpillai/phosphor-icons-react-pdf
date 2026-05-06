@@ -54,11 +54,11 @@ jobs:
       - name: Lint
         run: pnpm lint:fix
 
-      - name: Typecheck
-        run: pnpm typecheck
-
       - name: Build
         run: pnpm build
+
+      - name: Typecheck
+        run: pnpm typecheck
 
       - name: Test
         run: pnpm test
