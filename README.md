@@ -20,9 +20,19 @@ pnpm add phosphor-icons-react-pdf @react-pdf/renderer react
 
 `react` and `@react-pdf/renderer` are peer dependencies. This package expects your app to provide them.
 
-## Basic Usage
+## Recommended Usage
 
-The root import follows the `@phosphor-icons/react` naming style: icon components are exported as `PascalNameIcon`.
+For the smallest consumer bundles, import the exact fixed-weight icon file you need:
+
+```tsx
+import { BriefcaseIcon } from "phosphor-icons-react-pdf/regular/Briefcase";
+
+export function PdfIcon() {
+  return <BriefcaseIcon size={24} color="#111827" />;
+}
+```
+
+The root import follows the `@phosphor-icons/react` naming style and exports weighted icon components as `PascalNameIcon`. Use it when your bundler can tree-shake direct re-exports well.
 
 ```tsx
 import { AcornIcon, HorseIcon, HeartIcon } from "phosphor-icons-react-pdf";
@@ -63,12 +73,33 @@ The default weight is `regular`.
 type IconWeight = "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
 ```
 
-## Dynamic Icon Component
+## Small Custom Registries
 
-Use `Icon` when the icon name is data-driven. The `name` prop is the lowercase Phosphor icon name, including hyphens when present.
+For data-driven icons without shipping the full icon registry, create a local registry containing only the icons your document uses:
 
 ```tsx
-import { Icon } from "phosphor-icons-react-pdf";
+import { createIconComponent } from "phosphor-icons-react-pdf/create-icon";
+import { BriefcaseIcon } from "phosphor-icons-react-pdf/icons/Briefcase";
+import { GraduationCapIcon } from "phosphor-icons-react-pdf/icons/GraduationCap";
+
+export const Icon = createIconComponent({
+  briefcase: BriefcaseIcon,
+  "graduation-cap": GraduationCapIcon,
+});
+```
+
+The resulting `Icon` component accepts only those registry names:
+
+```tsx
+<Icon name="briefcase" weight="bold" size={18} color="#111827" />
+```
+
+## Full Dynamic Icon Component
+
+Use the full dynamic entrypoint when the icon name is completely data-driven and cannot be narrowed ahead of time. This intentionally imports the full generated registry.
+
+```tsx
+import { Icon } from "phosphor-icons-react-pdf/dynamic";
 
 export function PdfIconFromData() {
   return <Icon name="acorn" weight="duotone" size={24} color="#111827" />;
@@ -86,9 +117,10 @@ Type exports are available for typed icon pickers:
 ```ts
 import type {
   IconName,
-  IconWeight,
   IconPropsWithName,
-} from "phosphor-icons-react-pdf";
+} from "phosphor-icons-react-pdf/dynamic";
+
+import type { IconWeight } from "phosphor-icons-react-pdf";
 ```
 
 ## Variant Subpath Imports
@@ -123,7 +155,8 @@ import { AcornIcon as AcornDuotoneIcon } from "phosphor-icons-react-pdf/duotone/
 
 ```tsx
 import { Document, Page, PDFViewer, Text, View } from "@react-pdf/renderer";
-import { AcornIcon, Icon } from "phosphor-icons-react-pdf";
+import { HeartIcon } from "phosphor-icons-react-pdf/fill/Heart";
+import { AcornIcon } from "phosphor-icons-react-pdf/regular/Acorn";
 
 function MyDocument() {
   return (
@@ -131,7 +164,7 @@ function MyDocument() {
       <Page size="A4">
         <View>
           <AcornIcon size={24} color="#166534" />
-          <Icon name="heart" weight="fill" size={24} color="#dc2626" />
+          <HeartIcon size={24} color="#dc2626" />
           <Text>React-PDF icons</Text>
         </View>
       </Page>
@@ -152,7 +185,7 @@ export function App() {
 
 ```tsx
 import ReactPDF, { Document, Page, Text, View } from "@react-pdf/renderer";
-import { AcornIcon } from "phosphor-icons-react-pdf";
+import { AcornIcon } from "phosphor-icons-react-pdf/regular/Acorn";
 
 function MyDocument() {
   return (
@@ -181,7 +214,7 @@ type IconProps = {
 };
 ```
 
-Root icon components and the generic `Icon` also accept:
+Root icon components, custom registry icons, and the full dynamic `Icon` also accept:
 
 ```ts
 type WeightedIconProps = IconProps & {
@@ -199,7 +232,7 @@ For the smallest imports, prefer direct fixed-weight imports:
 import { AcornIcon } from "phosphor-icons-react-pdf/regular/Acorn";
 ```
 
-Root imports and the generic `Icon` are more convenient, but they reference the generated icon registry.
+Use `phosphor-icons-react-pdf/create-icon` for small app-specific registries. Use `phosphor-icons-react-pdf/dynamic` only when you intentionally want the full generated registry.
 
 ## Development
 

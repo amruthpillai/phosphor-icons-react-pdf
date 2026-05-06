@@ -1,5 +1,5 @@
-export type { IconName, IconPropsWithName } from "./Icon";
-export { Icon, icons } from "./Icon";
+export type { IconPropsWithName, IconRegistry } from "./create-icon";
+export { createIconComponent } from "./create-icon";
 export { AcornIcon, AcornIcon as Acorn } from "./icons/Acorn";
 export {
 	AddressBookIcon,

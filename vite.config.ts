@@ -28,7 +28,10 @@ const variantInputs = Object.fromEntries(
 );
 
 export default defineConfig({
-	plugins: [react(), dts({ include: ["src"], insertTypesEntry: true })],
+	plugins: [
+		react(),
+		dts({ entryRoot: "src", include: ["src"], insertTypesEntry: true }),
+	],
 
 	test: {
 		globals: true,
@@ -72,6 +75,11 @@ export default defineConfig({
 			external: (id) => externalDependencies.has(id),
 			input: {
 				index: resolve(import.meta.dirname, "src/index.ts"),
+				dynamic: resolve(import.meta.dirname, "src/dynamic.ts"),
+				"create-icon-entry": resolve(
+					import.meta.dirname,
+					"src/create-icon-entry.ts",
+				),
 				"icons/index": resolve(import.meta.dirname, "src/icons/index.ts"),
 				...variantInputs,
 			},

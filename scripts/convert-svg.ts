@@ -86,7 +86,11 @@ export function convertSvgToReactPdfComponent({
 		`import { ${imports} } from "@react-pdf/renderer";`,
 		'import type { IconProps } from "../types";',
 		"",
-		`export function ${componentName}({ color = "currentColor", size = 16, ...props }: IconProps) {`,
+		`export function ${componentName}({`,
+		'\tcolor = "currentColor",',
+		"\tsize = 16,",
+		"\t...props",
+		"}: IconProps) {",
 		"\treturn (",
 		body,
 		"\t);",
@@ -183,10 +187,11 @@ function renderNode(
 	const componentName = ELEMENTS[node.tagName];
 	usedElements.add(componentName);
 	const indent = "\t".repeat(indentLevel);
-	const attrs = renderAttributes(node);
+	const attrs = renderAttributes(node, indent);
 
 	if (node.children.length === 0) {
-		return `${indent}<${componentName}${attrs} />`;
+		const closing = attrs.startsWith("\n") ? "/>" : " />";
+		return `${indent}<${componentName}${attrs}${closing}`;
 	}
 
 	return [
@@ -198,7 +203,7 @@ function renderNode(
 	].join("\n");
 }
 
-function renderAttributes(node: SvgNode): string {
+function renderAttributes(node: SvgNode, indent: string): string {
 	const attrs = node.attrs
 		.filter(
 			([name]) =>
@@ -210,7 +215,16 @@ function renderAttributes(node: SvgNode): string {
 		attrs.push("width={size}", "height={size}", "{...props}");
 	}
 
-	return attrs.length > 0 ? ` ${attrs.join(" ")}` : "";
+	const inlineAttributes = attrs.length > 0 ? ` ${attrs.join(" ")}` : "";
+	if (
+		(node.tagName === "svg" ||
+			`${indent}<${ELEMENTS[node.tagName]}${inlineAttributes}>`.length > 80) &&
+		attrs.length > 1
+	) {
+		return `\n${attrs.map((attr) => `${indent}\t${attr}`).join("\n")}\n${indent}`;
+	}
+
+	return inlineAttributes;
 }
 
 function renderAttribute(name: string, value: string): string {

@@ -20,9 +20,9 @@ describe("convertSvgToReactPdfComponent", () => {
 		);
 		expect(output).toContain('import type { IconProps } from "../types";');
 		expect(output).toContain("export function AcornIcon");
-		expect(output).toContain(
-			'<Svg viewBox="0 0 256 256" width={size} height={size} {...props}>',
-		);
+		expect(output).toContain('<Svg\n\t\t\tviewBox="0 0 256 256"');
+		expect(output).toContain("\t\t\twidth={size}");
+		expect(output).toContain("\t\t\t{...props}\n\t\t>");
 		expect(output).toContain('<Rect width="256" height="256" fill="none" />');
 		expect(output).toContain("stroke={color}");
 		expect(output).toContain('strokeLinecap="round"');

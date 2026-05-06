@@ -40,6 +40,16 @@
 			"require": "./dist/index.cjs.js",
 			"types": "./dist/index.d.ts"
 		},
+		"./dynamic": {
+			"import": "./dist/dynamic.es.js",
+			"require": "./dist/dynamic.cjs.js",
+			"types": "./dist/dynamic.d.ts"
+		},
+		"./create-icon": {
+			"import": "./dist/create-icon-entry.es.js",
+			"require": "./dist/create-icon-entry.cjs.js",
+			"types": "./dist/create-icon-entry.d.ts"
+		},
 		"./bold": {
 			"import": "./dist/bold/index.es.js",
 			"require": "./dist/bold/index.cjs.js",

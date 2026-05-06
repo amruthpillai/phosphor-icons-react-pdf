@@ -2,8 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
 	getCoreSvgPath,
 	type IconEntry,
+	renderCreateIconEntry,
+	renderDynamicIndex,
 	renderIconRegistry,
 	renderRootIconComponent,
+	renderRootIndex,
 	renderVariantIndex,
 } from "../scripts/generate-icons";
 
@@ -46,10 +49,42 @@ describe("icon generation helpers", () => {
 		const output = renderIconRegistry([acorn]);
 
 		expect(output).toContain('import { AcornIcon } from "./icons/Acorn";');
-		expect(output).toContain('"acorn": AcornIcon');
+		expect(output).toContain("acorn: AcornIcon");
 		expect(output).toContain(
 			"export type IconPropsWithName = BaseIconPropsWithName<IconName>;",
 		);
 		expect(output).toContain("export const Icon = createIconComponent(icons);");
+	});
+
+	it("renders root indexes without the dynamic Icon registry", () => {
+		expect(renderRootIndex([acorn])).toBe(
+			[
+				'export type { IconPropsWithName, IconRegistry } from "./create-icon";',
+				'export { createIconComponent } from "./create-icon";',
+				'export type { IconProps, IconWeight, WeightedIconProps } from "./types";',
+				'export { AcornIcon, AcornIcon as Acorn } from "./icons/Acorn";',
+				"",
+			].join("\n"),
+		);
+	});
+
+	it("renders a dynamic index that opts into the full Icon registry", () => {
+		expect(renderDynamicIndex()).toBe(
+			[
+				'export type { IconName, IconPropsWithName } from "./Icon";',
+				'export { Icon, icons } from "./Icon";',
+				"",
+			].join("\n"),
+		);
+	});
+
+	it("renders a helper-only create-icon entrypoint", () => {
+		expect(renderCreateIconEntry()).toBe(
+			[
+				'export type { IconPropsWithName, IconRegistry } from "./create-icon";',
+				'export { createIconComponent } from "./create-icon";',
+				"",
+			].join("\n"),
+		);
 	});
 });
