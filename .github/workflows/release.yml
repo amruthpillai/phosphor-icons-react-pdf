@@ -54,14 +54,14 @@ jobs:
       - name: Lint
         run: pnpm lint:fix
 
-      - name: Test
-        run: pnpm test
-
       - name: Typecheck
         run: pnpm typecheck
 
       - name: Build
         run: pnpm build
+
+      - name: Test
+        run: pnpm test
 
       - name: Publish to npm
         run: npm publish

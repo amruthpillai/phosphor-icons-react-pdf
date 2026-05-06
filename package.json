@@ -127,7 +127,7 @@
 		"generate": "tsx scripts/generate-icons.ts",
 		"lint:fix": "biome check --write .",
 		"lint": "biome check .",
-		"prepublishOnly": "pnpm generate && pnpm lint:fix && pnpm test && pnpm typecheck && pnpm build",
+		"prepublishOnly": "pnpm generate && pnpm lint:fix && pnpm typecheck && pnpm build && pnpm test",
 		"test:coverage": "vitest run --coverage",
 		"test": "vitest run",
 		"typecheck": "tsc --noEmit"
