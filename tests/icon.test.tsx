@@ -15,11 +15,26 @@ describe("Icon", () => {
 			weight: "bold",
 		});
 
+		expect(element).not.toBeNull();
+		if (element === null) return;
+
 		expect(element.type).toBe(AcornIcon);
 		expect(element.props).toMatchObject({
 			color: "#111827",
 			size: 24,
 			weight: "bold",
 		});
+	});
+
+	it("renders nothing for an unknown icon name", () => {
+		const Icon = createIconComponent({
+			acorn: AcornIcon,
+		});
+
+		const element = Icon({
+			name: "activity" as never,
+		});
+
+		expect(element).toBeNull();
 	});
 });

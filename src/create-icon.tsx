@@ -8,6 +8,11 @@ export type IconPropsWithName<TName extends string = string> =
 		name: TName;
 	};
 
+const hasIcon = <TIcons extends IconRegistry>(
+	icons: TIcons,
+	name: string,
+): name is keyof TIcons & string => Object.keys(icons).includes(name);
+
 export function createIconComponent<const TIcons extends IconRegistry>(
 	icons: TIcons,
 ) {
@@ -18,6 +23,8 @@ export function createIconComponent<const TIcons extends IconRegistry>(
 		weight = "regular",
 		...props
 	}: IconPropsWithName<IconName>) {
+		if (!hasIcon(icons, name)) return null;
+
 		const Component = icons[name] as ComponentType<WeightedIconProps>;
 
 		return <Component weight={weight} {...props} />;
